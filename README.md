@@ -28,8 +28,6 @@ doctrine:
         dql:
             string_functions:
                 JSONB_CONTAINS: Emrdev\JsonbDql\Doctrine\PostgreSQL\JsonbContains
-
-
 ```
 
 If you are using DoctrineExtensions with Symfony read [How to Register custom DQL Functions](https://symfony.com/doc/current/doctrine/custom_dql_functions.html).

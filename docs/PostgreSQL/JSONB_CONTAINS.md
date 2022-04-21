@@ -14,16 +14,28 @@ JSONB_CONTAINS(haystack, needle)
 **haystack** - Data from the jsonb field in which the search is performed.
 
 **needle** - json string to search
- 
 
-##Example
+
+## Initialization function in Doctrine
+```
+# config\packages\doctrine.yaml
+doctrine: 
+    orm:
+        dql:
+            string_functions:
+                JSONB_CONTAINS: Emrdev\JsonbDql\Doctrine\PostgreSQL\JsonbContains
+```
+If you are using DoctrineExtensions with Symfony read [How to Register custom DQL Functions](https://symfony.com/doc/current/doctrine/custom_dql_functions.html).
+
+
+## Example use
 
 Table
 
 | id | data                                                                      |
 |----|----------------------------------------------------------------------------|
-| 1  | [{"id":1,"email":"info@example.com"},{"id":2,"email":"info2@example.com"}] |
-| 2  | [{"id":4,"email":"info4@example.com"},{"id":5,"email":"info5@example.com"}] |
+| 1  | [{"id":1,"text":"Hello world 1"},{"id":2,"text":"Hello world 2"}] |
+| 2  | [{"id":4,"text":"Hello world 4"},{"id":5,"text":"Hello world 5"}] |
 
 
 Query
@@ -38,4 +50,4 @@ Result
 
 | id | data                                                                      |
 |----|----------------------------------------------------------------------------| 
-| 2  | [{"id":4,"email":"info4@example.com"},{"id":5,"email":"info5@example.com"}] |
+| 2  | [{"id":4,"text":"Hello world 4"},{"id":5,"text":"Hello world 5"}] |
