@@ -1,0 +1,23 @@
+{
+    "name": "emrdev/jsonb-dql",
+    "description": "Library for working with Jsonb type in Doctrine Query Language",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Emrdev\\JsonbDql\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "emrdev",
+            "email": "emrdev@outlook.com"
+        }
+    ],
+    "require": {
+        "ext-pdo": "*",
+        "php": "^7.3 || ^8.0",
+        "doctrine/orm": "^2.0",
+        "doctrine/dbal": "^3.0"
+    }
+}
