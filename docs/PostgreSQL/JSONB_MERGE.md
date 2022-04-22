@@ -36,8 +36,8 @@ Table
 
 Query
 ```
-     $queryBuilder->select('t') 
-            ->select("JSONB_MERGE(t.data, t.second_data)");
+     $queryBuilder
+        ->select("JSONB_MERGE(t.data, t.second_data)");
             ->from('Table', 't');
 ```
 
