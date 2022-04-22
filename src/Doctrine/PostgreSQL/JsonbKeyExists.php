@@ -6,31 +6,29 @@ use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 
 
 /**
- * JsonbContainsFunction ::= "JSONB_CONTAINS" "(" StringPrimary "," StringPrimary ")"
+ * JsonbKeyExistsFunction ::= "JSONB_KEY_EXISTS" "(" StringPrimary "," StringPrimary ")"
  */
-class JsonbContains extends FunctionNode
+class JsonbKeyExists extends  FunctionNode
 {
-    const FUNCTION = 'JSONB_CONTAINS';
+    const FUNCTION = 'JSONB_KEY_EXISTS';
 
-    private $firstExpression = null;
+    private  $firstExpression = null;
 
-    private $secondExpression = null;
+    private  $secondExpression = null;
 
     public function getSql(SqlWalker $sqlWalker)
     {
         return sprintf(
-            '(%s @> %s)',
+            '%s ?? %s',
             $this->firstExpression->dispatch($sqlWalker),
             $this->secondExpression->dispatch($sqlWalker)
         );
     }
 
-    /**
-     * @throws \Doctrine\ORM\Query\QueryException
-     */
     public function parse(Parser $parser)
     {
         $parser->match(Lexer::T_IDENTIFIER);

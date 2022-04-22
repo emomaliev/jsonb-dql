@@ -1,19 +1,19 @@
-## JSONB_CONTAINS function in DQL
+## JSONB_KEY_EXISTS function in DQL
 
 
 Database: PostgreSQL 9.4+
 
-This function uses the `@>` operator, which checks if the first parameter contains the right one.
+This function uses `?` operator that checks if a string exists as a JSONB value key
 
 ## Description
 ```
-JSONB_CONTAINS(haystack, needle)
+JSONB_KEY_EXISTS(haystack, key)
 ```
 
 
-**haystack** - Data from the jsonb field in which the search is performed.
+**haystack** - jsonb data (not multidimensional, since the check occurs only on the top level).
 
-**needle** - json string to search
+**key** - string
 
 
 ## Initialization function in Doctrine
@@ -23,7 +23,7 @@ doctrine:
     orm:
         dql:
             string_functions:
-                JSONB_CONTAINS: Emrdev\JsonbDql\Doctrine\PostgreSQL\JsonbContains
+                JSONB_KEY_EXISTS: Emrdev\JsonbDql\Doctrine\PostgreSQL\JsonbKeyExists
 ```
 If you are using DoctrineExtensions with Symfony read [How to Register custom DQL Functions](https://symfony.com/doc/current/doctrine/custom_dql_functions.html).
 
@@ -34,20 +34,19 @@ Table
 
 | id | data                                                                      |
 |----|----------------------------------------------------------------------------|
-| 1  | [{"id":1,"text":"Hello world 1"},{"id":2,"text":"Hello world 2"}] |
-| 2  | [{"id":4,"text":"Hello world 4"},{"id":5,"text":"Hello world 5"}] |
+| 1  | {"id":1,"text":"Hello world 1"} |
+| 2  | {"text":"Hello world 5"} |
 
 
 Query
 ```
      $queryBuilder->select('t')
             ->from('Table', 't')
-            ->where("JSONB_CONTAINS(t.data, :search_json) = true") 
-            ->setParameter('search_json', '[{"id":4}]');
+            ->where("JSONB_KEY_EXISTS(t.data, 'id') = true");
 ```
 
 Result
 
 | id | data                                                                      |
 |----|----------------------------------------------------------------------------| 
-| 2  | [{"id":4,"text":"Hello world 4"},{"id":5,"text":"Hello world 5"}] |
+| 1  | {"id":1,"text":"Hello world 1"} | 

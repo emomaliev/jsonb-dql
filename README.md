@@ -8,7 +8,7 @@ Supported functions
 ------------
 | Database   | Function      |
 |------------|----------------|
-| PostgreSQL | [JSONB_CONTAINS](docs/PostgreSQL/JSONB_CONTAINS.md) | 
+| PostgreSQL | [JSONB_CONTAINS](docs/PostgreSQL/JSONB_CONTAINS.md) , [JSONB_KEY_EXISTS](docs/PostgreSQL/JSONB_KEY_EXISTS.md) | 
 
 
 Installation
