@@ -7,13 +7,12 @@ use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 
-
 /**
- * JsonbKeyExistsFunction ::= "JSONB_KEY_EXISTS" "(" StringPrimary "," StringPrimary ")"
+ * JsonbMergeFunction ::= "JSONB_MERGE" "(" StringPrimary "," StringPrimary ")"
  */
-class JsonbKeyExists extends  FunctionNode
+class JsonbMerge extends  FunctionNode
 {
-    const FUNCTION = 'JSONB_KEY_EXISTS';
+    const FUNCTION = 'JSONB_MERGE';
 
     private  $firstExpression = null;
 
@@ -22,7 +21,7 @@ class JsonbKeyExists extends  FunctionNode
     public function getSql(SqlWalker $sqlWalker)
     {
         return sprintf(
-            '%s ?? %s',
+            '(%s || %s)',
             $this->firstExpression->dispatch($sqlWalker),
             $this->secondExpression->dispatch($sqlWalker)
         );
